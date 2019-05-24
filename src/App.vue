@@ -26,47 +26,71 @@ export default {
   },
   data() {
     return {
-      contacts: [
-        {
-          id: 1,
-          name: "Richard Hendricks",
-          email: "richard@piedpiper.com",
-          number: "8875695251"
-        },
-        {
-          id: 2,
-          name: "Bertram Gilfoyle",
-          email: "gilfoyle@piedpiper.com",
-          number: "8875695251"
-        },
-        {
-          id: 3,
-          name: "Dinesh Chugtai",
-          email: "dinesh@piedpiper.com"
-        }
-      ]
+      contacts: []
     };
   },
+  mounted() {
+    this.getContacts();
+  },
   methods: {
-    addContact(contact) {
-      const lastId =
-        this.contacts.length > 0
-          ? this.contacts[this.contacts.length - 1].id
-          : 0;
-      const id = lastId + 1;
-      const newContact = { ...contact, id };
+    async getContacts() {
+      try {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/users?length=5"
+        );
+        const data = await response.json()
+        this.contacts = data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
 
-      this.contacts = [...this.contacts, newContact];
+    async addContact(contact) {
+      try {
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/users",
+          {
+            method: "POST",
+            body: JSON.stringify(contact),
+            headers: { "Content-type": "application/json; charset=UTF-8" }
+          }
+        );
+        const data = await response.json();
+        this.contacts = [...this.contacts, data];
+      } catch (error) {
+        console.error(error);
+      }
     },
-    deleteContact(id) {
-      this.contacts = this.contacts.filter(contact => contact.id !== id);
+    async deleteContact(id) {
+      try {
+        await fetch(
+          `https://jsonplaceholder.typicode.com/users/${id}`,
+          {
+            method: "DELETE"
+          }
+        );
+        this.contacts = this.contacts.filter(contact => contact.id !== id);
+      } catch (error) {
+        console.error(error);
+      }
     },
-    updateContact(id, updatedContact) {
-        this.contacts = this.contacts.map(contact =>
-    contact.id === id ? updatedContact : contact);
-    }
+
+    async updateContact(id, updatedContact) {
+            try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(updatedContact),
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+    })
+    const data = await response.json()
+      this.contacts = this.contacts.map(contact =>
+        (contact.id === id ? data : contact))
+  } catch (error) {
+    console.error(error);
   }
-};
+}
+  }
+}
 </script>
 
 <style>
@@ -84,4 +108,7 @@ button {
   border: 1px solid #009435;
 }
 
+.small-container {
+  max-width: 1200px;
+}
 </style>
