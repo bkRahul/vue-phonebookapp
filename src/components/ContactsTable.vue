@@ -21,9 +21,9 @@
           </td>
           <td v-else>{{ contact.email }}</td>
           <td v-if="editing === contact.id">
-            <input type="tel" size="20" minlength="10" maxlength="10" v-model="contact.number">
+            <input type="tel" size="20" minlength="10" maxlength="10" v-model="contact.phone">
           </td>
-          <td v-else>{{ contact.number }}</td>
+          <td v-else>{{ contact.phone }}</td>
           <td v-if="editing === contact.id">
             <button @click="editContact(contact)">Save</button>
             <button class="muted-button" @click="editing = null">Cancel</button>
@@ -54,7 +54,7 @@ export default {
       this.editing = id;
     },
     editContact(contact) {
-      if (this.name === "" || this.email === "" || this.number === "") return;
+      if (this.name === "" || this.email === "" || this.phone === "") return;
       this.$emit("edit:contact", contact.id, contact);
       this.editing = null;
     }

@@ -22,7 +22,7 @@
       <input
         type="tel" minlength="10" maxlength="10" pattern="[0-9]{10}"
         :class="{ 'has-error': submitting && invalidNumber }"
-        v-model="contact.number"
+        v-model="contact.phone"
         @focus="clearStatus"
       >
       <p v-if="error && submitting" class="error-message">❗Please fill out all required fields</p>
@@ -43,7 +43,7 @@ export default {
       contact: {
         name: "",
         email: "",
-        number: ""
+        phone: ""
       }
     };
   },
@@ -61,7 +61,7 @@ export default {
       this.contact = {
         name: "",
         email: "",
-        number: ""
+        phone: ""
       };
       this.error = false;
       this.success = true;
@@ -85,7 +85,7 @@ export default {
     },
 
     invalidNumber() {
-      return this.contact.number === "";        
+      return this.contact.phone === "";        
     }
   }
 };
@@ -106,5 +106,10 @@ form {
 
 .success-message {
   color: #32a95d;
+}
+
+#contact-form {
+  max-width: 500px;
+  margin: 0 auto;
 }
 </style>
