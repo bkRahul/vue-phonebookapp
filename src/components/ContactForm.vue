@@ -20,7 +20,7 @@
 
       <label>Contact Number</label>
       <input
-        type="tel" size="20" minlength="10" maxlength="10"
+        type="tel" minlength="10" maxlength="10" pattern="[0-9]{10}"
         :class="{ 'has-error': submitting && invalidNumber }"
         v-model="contact.number"
         @focus="clearStatus"
