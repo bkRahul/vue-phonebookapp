@@ -1,9 +1,9 @@
 # vue-phonebookapp
 
-#Features
+# Features
 
-Create, update, and delete contacts from the system
-Make API calls for each of the above actions
+Create, update, and delete contacts from the system\
+Make API calls for each of the above actions\
 Hosted on GitHub pages
 
 https://bkrahul.github.io/vue-phonebookapp/
